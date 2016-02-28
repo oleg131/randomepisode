@@ -10,7 +10,7 @@ import db
 
 app = Flask(__name__)
 
-engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(db.user, db.pwd, db.host, db.db), pool_size=2)
+engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(db.user, db.pwd, db.host, db.db), pool_size=2, pool_recycle=3600)
 
 def now():
     return re.sub('\D', '', str(datetime.datetime.now()).split('.', 1)[0])
@@ -73,7 +73,7 @@ def new_user():
 
 @app.route('/<user>/delete/<show_id>')
 def delete(user, show_id):
-    
+
     user_id = get_user_id_by_token(user)
 
     with engine.connect() as c:
@@ -84,7 +84,7 @@ def delete(user, show_id):
         statement = '''DELETE FROM episodes WHERE user_id='{}' AND show_id='{}';'''.format(user_id, show_id)
         result = conn.execute(statement)
         trans.commit()
-    
+
     return redirect('/{}/edit'.format(user), code=302)
 
 
@@ -115,8 +115,8 @@ def edit(user):
 
             if len(user_shows)==0:
 
-                user_id = get_user_id_by_token(user)    
-                if not user_id:       
+                user_id = get_user_id_by_token(user)
+                if not user_id:
                     df = pd.DataFrame({'token': user}, index=[0])
                     with engine.connect() as c:
                         conn = c.connection
@@ -169,7 +169,7 @@ def userpage(user, methods=['GET', 'POST']):
         conn = c.connection
         df = pd.read_sql(statement, conn)
     user_shows = df.drop_duplicates()
-    
+
     statement = '''
     SELECT * FROM episodes
     JOIN shows using(show_id)
@@ -194,12 +194,12 @@ def userpage(user, methods=['GET', 'POST']):
         all_episodes.columns = ['season', 'episode', 'show_id', 'title']
 
         watched_episodes = user_episodes[user_episodes['title']==title]
-        
+
         merged = pd.concat([all_episodes, watched_episodes[all_episodes.columns]])
         merged.drop_duplicates(keep=False, inplace=True)
 
         merged['remote_id'] = r.json()['id']
-        
+
         nonwatched.append(merged)
 
     if len(nonwatched)==0:
@@ -230,8 +230,8 @@ def userpage(user, methods=['GET', 'POST']):
     if image is not None:
         image = image['original']
 
-    
-    return render_template('watch.html', title=title, season=season, episode=episode, 
+
+    return render_template('watch.html', title=title, season=season, episode=episode,
         name=name, summary=summary, image=image, user=user)
 
 
