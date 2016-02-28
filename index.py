@@ -47,7 +47,7 @@ def get_user_id_by_token(user):
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
-    if request.method == 'POST':
+    if request.method == 'POST' and request.form['text']:
         alltext = request.form['name'] + '\n' + request.form['email'] + '\n' + request.form['type'] + '\n' + request.form['text']
         with open('contact/{}.txt'.format(now()), "w") as text_file:
             text_file.write(alltext)
