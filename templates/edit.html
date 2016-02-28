@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    <p>Search and add your favorite TV shows. <br>Watch a random episode at</p>
+    <h3><a href="{{ url_for('userpage', user=user, _external=True) }}"><code>{{ url_for('userpage', user=user, _external=True) }}</code></a></h3><p></p>
+    <p>P.S. You may want to bookmark this address for later use.</p>
+    
+  </div>
+
+
+</div>
+  <div class="text-center">
+    <h3>Add a new show to your account</h3>
+    <form class="form-inline" method="post">
+      <div class="form-group">
+        <input type="text" name="show" class="form-control" size="50">
+      </div>
+      <button type="submit" class="btn btn-success">Add</button>
+    </form>
+
+  {% if extra=="no_such_show" %}
+    <p>No show found</p>
+  {% endif %}
+
+  </div>
+
+{% if shows %}
+  <div class="container">
+    <div class="list-group">
+      <h3>Existing shows <small>(click to delete)</small></h3>
+      {% for show in shows %}
+        <a href="/{{user}}/delete/{{show_ids[loop.index-1]}}" class="list-group-item">{{ show }}</a>
+      {% endfor %}
+    </div>
+   </div>
+{% else %}
+<!--   <div class="container">
+    <h3 class="text-center">No shows yet</h3>
+  </div> -->
+
+{% endif %}
+
+
+{% endblock %}

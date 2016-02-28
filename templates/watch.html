@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    {% if title=='none' %}
+      <h1>No shows defined</h1>
+    {% elif title=='reset' %}
+      <h2>All episodes viewed, <a href="{{ user }}/reset">reset?</a></h2>
+    {% else %}
+
+      <h3>You should watch</h3>
+
+      {% if season|length < 2 %}
+          {% set season2 = '0'+season %}
+      {% else %}
+          {% set season2 = season %}
+      {% endif %}
+
+      {% if episode|length < 2 %}
+          {% set episode2 = '0'+episode %}
+      {% else %}
+          {% set episode2 = episode %}
+      {% endif %}
+
+
+      <h1>
+        <a href="https://www.google.com/search?q=watch online {{title}} s{{season2}}e{{episode2}}">
+          <small>{{ title }}</small><br>
+          {{ season }}x{{ episode }}
+        </a>
+      </h1>
+
+    <div class="col-xs-12" style="height:50px;"></div>
+
+    
+    <div class="row" style="text-align:center">
+      <div class="card" style="width: 500px; margin: 0 auto; display: inline-block">
+       <!--  {% if image is not none %}
+          <img class="card-img-top" src="{{ image }}" alt="Card image cap" style="width:100%; height:150px; object-fit: cover; ">
+        {% endif %} -->
+        <div class="card-block">
+          <h4 class="card-title"><i>{{ name }}</i></h4>
+          <p class="card-text" style="font-size: 100%">{{ summary }}</p>
+        </div>
+      </div>
+    </div>
+
+      
+    {% endif %}
+    
+    
+<!-- 
+    <p></p>
+
+    <a class="btn btn-default" href="{{ user }}/edit" role="button">Edit your shows</a> -->
+
+
+
+
+
+
+  </div>
+</div>
+
+
+{% endblock %}

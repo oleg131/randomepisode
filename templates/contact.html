@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container text-center">
+
+	
+
+<h3>{% if sent %}<small>Sent successfully</small><br><br>{% endif %} Send a message. All fields are optional. </h3>
+<div class="panel-body">
+    <form role="form" method="post">
+	<br/>
+	    <div class="form-group input-group">
+	        <span class="input-group-addon"><i class="fa fa-circle-o-notch"  ></i></span>
+	        <input name="name" type="text" class="form-control" placeholder="Your Name" />
+	    </div>
+	     <div class="form-group input-group">
+	        <span class="input-group-addon"></span>
+	        <input name="email" type="text" class="form-control" placeholder="Your Email" />
+	    </div>
+	    <div class="form-group input-group">
+	        <span class="input-group-addon"></span>
+	        <select class="form-control" name="type">
+			  <option>General</option>
+			  <option>Suggestion</option>
+			  <option>Bug</option>
+			</select>
+	    </div>
+	  <div class="form-group input-group">
+	        <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
+	        <textarea name="text" class="form-control" rows="3" placeholder="Text"></textarea>
+	    </div>
+	 
+	 <button type="submit" class="btn btn-default">Send</button>
+
+	</form>
+</div>
+
+
+
+</div>
+
+{% endblock %}
