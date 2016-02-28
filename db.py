@@ -1,5 +1,5 @@
-user = 'user'
-pwd = 'pass'
-db = 'db'
+user = 'randomepisode'
+pwd = 'superlongmysqlpassword'
+db = 'randomepisode$default'
 
-host = '127.0.0.1'
+host = 'randomepisode.mysql.pythonanywhere-services.com'
