@@ -1,6 +1,6 @@
 # randomepisode
 
 ### Todo
-- separate `users` and `user_shows` tables
-- add option to remove shows
-- add templates
+- more detailed description
+- option to email url
+- list of most recent user tokens
